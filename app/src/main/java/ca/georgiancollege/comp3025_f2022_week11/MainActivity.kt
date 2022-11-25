@@ -32,10 +32,12 @@ class MainActivity : AppCompatActivity() {
         TVShows = mutableListOf<TVShow>() // creates an empty List container
         tvShowAdapter = TVShowAdapter(TVShows)
 
-
-
         tvShowAdapter.onTVShowClick = { tvShow, position ->
             showCreateTVShowDialog(AlertAction.UPDATE, tvShow, position)
+        }
+
+        tvShowAdapter.onTVShowSwipeLeft = {tvShow, position ->
+
         }
 
         initializeRecyclerView()

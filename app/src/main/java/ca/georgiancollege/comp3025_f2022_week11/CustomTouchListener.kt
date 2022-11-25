@@ -20,8 +20,8 @@ open class CustomTouchListener(context: Context?): OnTouchListener
 
     inner class GestureListener: SimpleOnGestureListener()
     {
-        private val SWIPE_LENGTH_THRESHOLD: Int = 100
-        private val SWIPE_VELOCITY_THRESHOLD: Int = 100
+        private val SWIPE_LENGTH_HORIZONTAL_THRESHOLD: Int = 50
+        private val SWIPE_VELOCITY_THRESHOLD: Int = 50
         private val DEBUG_TAG = "Gestures"
 
         override fun onDown(event: MotionEvent?): Boolean
@@ -30,25 +30,11 @@ open class CustomTouchListener(context: Context?): OnTouchListener
             return true
         }
 
-        override fun onSingleTapUp(event: MotionEvent?): Boolean
+        override fun onSingleTapConfirmed(event: MotionEvent?): Boolean
         {
-            Log.d(DEBUG_TAG, "onSIngleTapUp: $event")
+            Log.d(DEBUG_TAG, "onSingleTap: $event")
             onClick()
             return super.onSingleTapUp(event)
-        }
-
-        override fun onDoubleTap(event: MotionEvent?): Boolean
-        {
-            Log.d(DEBUG_TAG, "onDoubleTap: $event")
-            onDoubleClick()
-            return super.onDoubleTap(event)
-        }
-
-        override fun onLongPress(event: MotionEvent?)
-        {
-            Log.d(DEBUG_TAG, "onLongPress: $event")
-            onLongClick()
-            super.onLongPress(event)
         }
 
         override fun onFling(event1: MotionEvent, event2: MotionEvent,
@@ -63,7 +49,7 @@ open class CustomTouchListener(context: Context?): OnTouchListener
                 if(abs(diffXs) > abs(diffYs))
                 {
                     // did we meet our length and velocity thresholds
-                    if(abs(diffXs) > SWIPE_LENGTH_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
+                    if(abs(diffXs) > SWIPE_LENGTH_HORIZONTAL_THRESHOLD && abs(velocityX) > SWIPE_VELOCITY_THRESHOLD)
                     {
                         // determine which direction
                         if(diffXs > 0)
@@ -78,25 +64,6 @@ open class CustomTouchListener(context: Context?): OnTouchListener
                         }
                     }
                 }
-                // swiping vertically?
-                else
-                {
-                    // did we meet our length and velocity thresholds
-                    if(abs(diffYs) > SWIPE_LENGTH_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD)
-                    {
-                        // determine which direction
-                        if(diffYs < 0)
-                        {
-                            onSwipeUp()
-                            Log.d(DEBUG_TAG, "onSwipeUp")
-                        }
-                        else
-                        {
-                            onSwipeDown()
-                            Log.d(DEBUG_TAG, "onSwipeDown")
-                        }
-                    }
-                }
             }
             catch(exception: Exception)
             {
@@ -108,12 +75,7 @@ open class CustomTouchListener(context: Context?): OnTouchListener
 
     open fun onSwipeLeft(){}
     open fun onSwipeRight(){}
-    open fun onSwipeUp(){}
-    open fun onSwipeDown(){}
-
-    private fun onClick(){}
-    private fun onDoubleClick(){}
-    private fun onLongClick(){}
+    open fun onClick(){}
     init {
         gestureDetector = GestureDetector(context, GestureListener())
     }
