@@ -166,11 +166,6 @@ class MainActivity : AppCompatActivity() {
                         tvShowAdapter.notifyDataSetChanged()
                     }
                 }
-
-                for(tvShow in TVShows)
-                {
-                    Log.i("show", "tvShow: $tvShow")
-                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
