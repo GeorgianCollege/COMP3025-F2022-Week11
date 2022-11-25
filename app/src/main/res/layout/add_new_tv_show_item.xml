@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_show_title"
+            android:id="@+id/tv_show_title_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -23,15 +23,15 @@
             android:text="@string/title_prompt"
             android:textSize="@dimen/CellTextSize"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/Studio_Title"
-            app:layout_constraintEnd_toStartOf="@+id/TV_Show_Title_EditText"
+            app:layout_constraintBottom_toTopOf="@+id/studio_name_TextView"
+            app:layout_constraintEnd_toStartOf="@+id/tv_show_title_EditText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_absoluteHeight="32dp"
             tools:layout_conversion_absoluteWidth="151dp" />
 
         <EditText
-            android:id="@+id/TV_Show_Title_EditText"
+            android:id="@+id/tv_show_title_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -40,17 +40,17 @@
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:nextFocusDown="@id/Studio_Name_EditText"
-            app:layout_constraintBottom_toTopOf="@+id/Studio_Name_EditText"
+            android:nextFocusDown="@id/studio_name_EditText"
+            app:layout_constraintBottom_toTopOf="@+id/studio_name_EditText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_show_title"
+            app:layout_constraintStart_toEndOf="@+id/tv_show_title_TextView"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck"
             tools:layout_conversion_absoluteHeight="45dp"
             tools:layout_conversion_absoluteWidth="230dp" />
 
         <TextView
-            android:id="@+id/Studio_Title"
+            android:id="@+id/studio_name_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -63,7 +63,7 @@
             tools:layout_conversion_absoluteWidth="151dp" />
 
         <EditText
-            android:id="@+id/Studio_Name_EditText"
+            android:id="@+id/studio_name_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
@@ -74,7 +74,7 @@
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Studio_Title"
+            app:layout_constraintStart_toEndOf="@+id/studio_name_TextView"
             tools:ignore="SpeakableTextPresentCheck"
             tools:layout_conversion_absoluteHeight="0dp"
             tools:layout_conversion_absoluteWidth="230dp" />

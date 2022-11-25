@@ -4,9 +4,12 @@
     <string name="studio_text">Studio</string>
     <string name="add_dialog_title">Add a new TV Show</string>
     <string name="update_dialog_title">Update a TV Show</string>
-    <string name="add_tv_show">Add TV Show</string>
-    <string name="update_tv_show">Update TV Show</string>
+    <string name="delete_dialog_title">Delete a TV Show</string>
+    <string name="add_tv_show">Add</string>
+    <string name="update_tv_show">Update</string>
+    <string name="delete_tv_show">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="title_prompt">TV Show Title</string>
     <string name="subtitle_prompt">Studio Name</string>
+    <string name="are_you_sure_prompt">Are you sure?</string>
 </resources>

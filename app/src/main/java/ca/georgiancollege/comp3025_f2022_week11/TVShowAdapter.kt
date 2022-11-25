@@ -19,15 +19,8 @@ class TVShowAdapter(private val dataSet: MutableList<TVShow>):
 
         init {
             // Define click listener for the ViewHolder's View.
-            title = view.findViewById(R.id.tv_show_title)
+            title = view.findViewById(R.id.tv_show_title_TextView)
             studio = view.findViewById(R.id.studio)
-
-            /*
-            view.setOnClickListener{
-                onTVShowClick?.invoke(dataSet[adapterPosition], adapterPosition)
-            }
-
-             */
 
             view.setOnTouchListener(object: CustomTouchListener(view.context){
                 override fun onSwipeLeft() {

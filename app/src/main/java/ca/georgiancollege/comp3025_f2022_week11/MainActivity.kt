@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         tvShowAdapter.onTVShowSwipeLeft = {tvShow, position ->
-
+            showCreateTVShowDialog(AlertAction.DELETE, tvShow, position)
         }
 
         initializeRecyclerView()
@@ -70,9 +72,15 @@ class MainActivity : AppCompatActivity() {
         database.child("TVShows").child(id).setValue(tvShow)
     }
 
+    fun deleteTVShow(id: String, tvShow: TVShow?)
+    {
+        database.child("TVShows").child(id).removeValue()
+    }
+
     private fun showCreateTVShowDialog(alertAction: AlertAction, tvShow: TVShow?, position: Int?) {
         var dialogTitle: String = ""
         var positiveButtonTitle: String = ""
+        var negativeButtonTitle: String = getString(R.string.cancel)
 
         when (alertAction) {
             AlertAction.ADD -> {
@@ -83,6 +91,10 @@ class MainActivity : AppCompatActivity() {
                 dialogTitle = getString(R.string.update_dialog_title)
                 positiveButtonTitle = getString(R.string.update_tv_show)
             }
+            AlertAction.DELETE -> {
+                dialogTitle = getString(R.string.delete_dialog_title)
+                positiveButtonTitle = getString(R.string.delete_dialog_title)
+            }
         }
 
         val builder = AlertDialog.Builder(this)
@@ -91,15 +103,17 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle(dialogTitle)
         builder.setView(view)
 
-        val tvShowTitleEditText = view.findViewById<EditText>(R.id.TV_Show_Title_EditText)
-        val studioTitleEditText = view.findViewById<EditText>(R.id.Studio_Name_EditText)
+        val tvShowTitleTextView = view.findViewById<TextView>(R.id.tv_show_title_TextView)
+        val tvShowTitleEditText = view.findViewById<EditText>(R.id.tv_show_title_EditText)
+        val studioNameTextView = view.findViewById<TextView>(R.id.studio_name_TextView)
+        val studioNameEditText = view.findViewById<EditText>(R.id.studio_name_EditText)
 
         when(alertAction)
         {
             AlertAction.ADD -> {
                 builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
                     dialog.dismiss()
-                    val newTVShow = TVShow(tvShowTitleEditText.text.toString(), studioTitleEditText.text.toString())
+                    val newTVShow = TVShow(tvShowTitleEditText.text.toString(), studioNameEditText.text.toString())
                     writeNewTVShow(newTVShow)
                 }
             }
@@ -107,13 +121,28 @@ class MainActivity : AppCompatActivity() {
 
                 if (tvShow != null) {
                     tvShowTitleEditText.setText(tvShow?.title)
-                    studioTitleEditText.setText(tvShow?.studio)
+                    studioNameEditText.setText(tvShow?.studio)
                 }
 
                 builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
                     dialog.dismiss()
-                    val newTVShow = TVShow(tvShowTitleEditText.text.toString(), studioTitleEditText.text.toString())
+                    val newTVShow = TVShow(tvShowTitleEditText.text.toString(), studioNameEditText.text.toString())
                     updateTVShow(position.toString(), newTVShow)
+                }
+            }
+            AlertAction.DELETE -> {
+                tvShowTitleTextView.setText(R.string.are_you_sure_prompt)
+                tvShowTitleEditText.isVisible = false
+                studioNameTextView.isVisible = false
+                studioNameEditText.isVisible = false
+
+                builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
+                    dialog.dismiss()
+                    deleteTVShow(position.toString(), tvShow)
+                }
+
+                builder.setNegativeButton(negativeButtonTitle) {dialog, _ ->
+                    dialog.cancel()
                 }
             }
         }

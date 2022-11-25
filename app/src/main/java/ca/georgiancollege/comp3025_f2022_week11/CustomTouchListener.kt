@@ -26,13 +26,11 @@ open class CustomTouchListener(context: Context?): OnTouchListener
 
         override fun onDown(event: MotionEvent?): Boolean
         {
-            Log.d(DEBUG_TAG, "onDown: $event")
-            return true
+             return true
         }
 
         override fun onSingleTapConfirmed(event: MotionEvent?): Boolean
         {
-            Log.d(DEBUG_TAG, "onSingleTap: $event")
             onClick()
             return super.onSingleTapUp(event)
         }
